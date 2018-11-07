@@ -4,6 +4,12 @@ file_path=$1;
 username=$USER;
 quota=$(cat quota.txt);
 
+function create_user_status_file {
+    users=`ls /home`;
+    echo "User Consumed" > user-status.txt;
+    echo "$users" | awk '{print $1 " " 0}' >> user-status.txt;
+}
+
 function check_user_quota {
     user=$1;
     consumed=$(cat user-status.txt | grep $user | awk '{print $2}');
@@ -60,6 +66,15 @@ case $1 in
     --refresh)
 	echo "Refreshing...";
 	refresh;
+    ;;
+    --quota)
+	echo "Setting quota...";
+	new_quota=$2;
+	echo $new_quota > quota.txt;
+    ;;
+    --create-user-status)
+	echo "Creating user status file...";
+	create_user_status_file;
     ;;
     *)
         main;
