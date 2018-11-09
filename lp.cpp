@@ -7,11 +7,10 @@ int setuid(uid_t uid);
 
 int main(int argc, char* argv[]) {
     setuid(0);
-    string command = "./lp.sh ";
+    string command = "./lp.sh";
 
     for (int i = 1; i < argc; i++) {
-      command += argv[i];
-      command += " ";
+      command = command + " " +  argv[i];
     }
 
     system(command.c_str());
