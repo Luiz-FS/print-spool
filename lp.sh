@@ -3,11 +3,6 @@
 file_path=$1;
 username=$USER;
 
-function create_user_status_file {
-    users=`ls /home`;
-    echo "User Consumed" > user-status.txt;
-    echo "$users" | awk '{print $1 " " 0}' >> user-status.txt;
-}
 
 function check_user_quota {
     quota=$(cat quota.txt);
@@ -43,12 +38,6 @@ function add_log {
     echo "$job_status";
 }
 
-function refresh {
-    quota=$(cat quota.txt);
-    awk -v quota=$quota '{ if (NR == 1) print $1 " " $2 } {if (NR != 1 && $2 - quota > 0) print $1 " " $2 - quota; else if (NR != 1) print $1 " "  0;}' user-status.txt > temp.txt;
-    mv temp.txt user-status.txt;    
-}
-
 function main {
     status=$(check_user_quota $username);
 
@@ -63,21 +52,4 @@ function main {
     fi
 }
 
-case $1 in 
-    --refresh)
-	echo "Refreshing...";
-	refresh;
-    ;;
-    --quota)
-	echo "Setting quota...";
-	new_quota=$2;
-	echo $new_quota > quota.txt;
-    ;;
-    --create-user-status)
-	echo "Creating user status file...";
-	create_user_status_file;
-    ;;
-    *)
-        main;
-    ;;
-esac
+main;
