@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sudo touch log.txt;
-sudo echo "Date time user file pages status" > log.txt;
 sudo ./lp-config.sh --create-user-status;
 
 echo -n "Digite uma cota: ";

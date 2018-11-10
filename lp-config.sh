@@ -26,6 +26,7 @@ case $1 in
     ;;
     --create-user-status)
         echo "Creating user status file...";
+        echo "Date time user file pages status" > log.txt;
         create_user_status_file;
     ;;
     *)
