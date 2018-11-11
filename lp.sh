@@ -9,7 +9,10 @@ function check_user_quota {
     user=$1;
     consumed=$(cat user-status.txt | grep $user | awk '{print $2}');
 
-    if [ $consumed -gt $quota ] ; then
+    if [ -z $consumed ] ; then
+        echo "User not allowed to print!";
+        exit 1;
+    elif [ $consumed -gt $quota ] ; then
         echo "Quota exceeded!";
         exit 1;
     else
@@ -47,9 +50,18 @@ function main {
         consumed=$(expr $user_quota + $file_pages);
         replace_consumed_quota $consumed;
         add_log "Success!" $file_pages;
+        # Call the original lp command
+        # lp-orig $file_path
     else
         add_log "$status" $(count_pages $file_path);
     fi
 }
 
-main;
+case $1 in
+    --log)
+        cat log.txt;
+    ;;
+    *)
+        main;
+    ;;
+esac

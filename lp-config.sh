@@ -29,6 +29,11 @@ case $1 in
         echo "Date time user file pages status" > log.txt;
         create_user_status_file;
     ;;
+    --add-user)
+        username=$2;
+        echo "Adding user $username...";
+        echo "$username 0" >> user-status.txt;
+    ;;
     *)
         echo "Option not found.";
     ;;
