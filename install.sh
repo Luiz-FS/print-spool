@@ -19,6 +19,7 @@ sudo mv $lp_path/lp $lp_path/lp-orig;
 sudo chmod 700 $lp_path/lp-orig;
 
 sudo mkdir /usr/lib/lp;
+sudo mv ./* /usr/lib/lp/;
 sudo ln -s /usr/lib/lp/lp $lp_path/lp;
 sudo ln -s /usr/lib/lp/lp-config.sh $lp_path/lp-config;
 
