@@ -22,4 +22,4 @@ sudo mkdir /usr/lib/lp;
 sudo ln -s /usr/lib/lp/lp $lp_path/lp;
 sudo ln -s /usr/lib/lp/lp-config.sh $lp_path/lp-config;
 
-echo "0 0 1 * * root ./usr/lib/lp/lp-config.sh --refresh" >> /var/spool/cron/contrabs/root;
+echo "0 0 1 * * root ./usr/lib/lp/lp-config.sh --refresh" | sudo tee -a /var/spool/cron/contrabs/root;
